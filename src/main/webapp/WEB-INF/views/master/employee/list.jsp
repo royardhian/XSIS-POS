@@ -1,9 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <c:forEach var="item" items="${list}">
-	<tr>
+	<tr <c:if test="${item.active == 0}">style="display: none"</c:if>>
 		<td>${item.firstName}</td>
 		<td>${item.email}</td>
 		<td class="HA">${item.haveAccount}</td>
+		<td>${item.active}</td>
 		<td>${item.user.role.name}</td>
 
 		<td>
@@ -21,9 +22,10 @@
 		$('.HA').filter(function() {
 			return $.trim(this.innerHTML) === "1"
 		}).html('<span class="glyphicon glyphicon-ok"></span>');
-		
+
 		$('.HA').filter(function() {
 			return $.trim(this.innerHTML) === "0"
 		}).html('<span class="glyphicon glyphicon-remove"></span>');
+
 	</script>
 </c:forEach>

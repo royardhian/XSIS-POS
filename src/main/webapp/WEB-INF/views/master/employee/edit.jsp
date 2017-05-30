@@ -26,9 +26,13 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
-				<label class="control-label" for="title">Title</label> <input
-					type="text" name="title" id="title" value="${item.title }"
-					class="form-control" />
+				<input type="hidden" id="getTitle" name="getTitle"
+					value="${item.title }"> <label class="control-label"
+					for="title">Title</label> <select name="title" id="title"
+					class="form-control">
+					<option>Mr.</option>
+					<option>Mrs.</option>
+				</select>
 			</div>
 		</div>
 
@@ -45,8 +49,8 @@
 		<div class="form-group col-md-10">
 			<div class="Account">
 				<input type="hidden" id="haveAccount" name="haveAccount"
-					value="${item.haveAccount }"> <input type="hidden"
-					id="RID" name="RID" value="${item.user.roleId }">
+					value="${item.haveAccount }"> <input type="hidden" id="RID"
+					name="RID" value="${item.user.roleId }">
 			</div>
 		</div>
 	</div>
@@ -56,7 +60,7 @@
 			<div class="form-group">
 				<label class="control-label" for="roleId">Role</label> <select
 					id="roleId" name="roleId" class="form-control">
-					<option value="">none</option>
+					<option value="0">none</option>
 					<c:forEach var="role" items="${roleList}">
 						<option value="${role.id}">${role.name}</option>
 					</c:forEach>
@@ -105,4 +109,7 @@
 
 	var role = $('#RID').val();
 	$("#roleId").val(role);
+	
+	var title = $('#getTitle').val();
+	$("#title").val(title);
 </script>

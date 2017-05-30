@@ -23,8 +23,12 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
-				<label class="control-label" for="title">Title</label> <input
-					type="text" name="title" id="title" class="form-control" />
+				<label class="control-label" for="title">Title</label> <select
+					name="title" id="title" class="form-control">
+					<option>Mr.</option>
+					<option>Mrs.</option>
+
+				</select>
 			</div>
 		</div>
 
@@ -37,6 +41,30 @@
 
 	</div>
 
+	<div class="box box-info">
+		<div class="box-header">
+			<h3 class="box-title">Assign Outlet</h3>
+			<div class="box-tools">
+				<button type="button" id="btn-add-variant"
+					class="btn btn-primary btn-sm">
+					<i class="fa fa-plus"></i>
+				</button>
+			</div>
+		</div>
+		<div class="box-body">
+			<table class="table table-considered">
+				<thead>
+					<tr>
+						<td class="col-md-4">Outlet</td>
+						<td class="col-md-1">Action</td>
+					</tr>
+				</thead>
+				<tbody id="list-variant">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
 
 	<div class="row">
 		<div class="form-group col-md-10">

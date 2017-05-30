@@ -118,9 +118,36 @@ public class MstEmployeeDaoImpl implements MstEmployeeDao {
 	}
 
 	@Override
-	public void delete(MstEmployeeViewModel employee) throws Exception {
-		sessionFactory.getCurrentSession().delete(employee);
-		
+	public void delete(MstEmployeeViewModel model) throws Exception {
+		Session session = sessionFactory.getCurrentSession();
+		// employee
+		MstEmployeeModel emp = this.getById(model.getId());
+
+		emp.setModifiedBy(model.getModifiedBy());
+		emp.setModifiedOn(model.getModifiedOn());
+		emp.setActive(0);
+		session.update(emp);
+
+		// // outlet
+		// List<Integer> outletList = model.getOutletId();
+		// if(outletList != null && outletList.size() > 0){
+		// for (Integer item : outletList) {
+		// MstEmployeeOutletModel outletEmp = new MstEmployeeOutletModel();
+		// outletEmp.setEmployeeId(emp.getId());
+		// outletEmp.setOutletId(item);
+		// session.save(outletEmp);
+		// }
+		// }
+
+		// save ke user
+		if (model.getRoleId() > 0 && !model.getUserName().equals("") && !model.getPassword().equals("")) {
+			MstUserModel user = emp.getUser();
+	
+			user.setModifiedBy(model.getModifiedBy());
+			user.setModifiedOn(model.getModifiedOn());
+			user.setActive(0);
+			session.update(user);		
+	}
 	}
 
 }
