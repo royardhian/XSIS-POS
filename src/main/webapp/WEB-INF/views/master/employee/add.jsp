@@ -45,6 +45,10 @@
 		<div class="box-header">
 			<h3 class="box-title">Assign Outlet</h3>
 			<div class="box-tools">
+				<button type="button" id="btn-delete-variant"
+					class="btn btn-primary btn-sm">
+					<i class="fa fa-plus"></i>
+				</button>
 				<button type="button" id="btn-add-variant"
 					class="btn btn-primary btn-sm">
 					<i class="fa fa-plus"></i>
@@ -52,14 +56,14 @@
 			</div>
 		</div>
 		<div class="box-body">
-			<table class="table table-considered">
+			<table id="outlet-table" class="table table-considered">
 				<thead>
 					<tr>
 						<td class="col-md-4">Outlet</td>
 						<td class="col-md-1">Action</td>
 					</tr>
 				</thead>
-				<tbody id="list-variant">
+				<tbody id="list-outlet">
 
 				</tbody>
 			</table>

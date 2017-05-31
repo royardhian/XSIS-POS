@@ -3,7 +3,7 @@
 	request.setAttribute("contextName", request.getContextPath());
 %>
 <!-- modal -->
-<div id="modal-form" class="modal" tabindex="-1" role="dialog">
+<div id="modal-form" class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -17,7 +17,7 @@
 	</div>
 </div>
 
-<div id="modal-variant" class="modal modal-primary" tabindex="-1"
+<div id="modal-outlet" class="modal modal-primary" tabindex="-1"
 	role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -119,41 +119,63 @@
 				dataType : 'html',
 				type : 'get',
 				success : function(result) {
-					$("#modal-variant").find(".modal-body").html(result);
-					$("#form-variant").trigger("reset");
+					$("#modal-outlet").find(".modal-body").html(result);
 					$("#var-action").val("insert");
-					$("#modal-variant").modal("show");
+					$("#modal-outlet").modal("show");
 				}
 			});
 		});
 		
 		// add variant
-		$("#modal-variant").on("click","#btn-add-outlet",function(){
-			/* 
-			var outletId =$("#outletId").val();
-			var action = $("#var-action").val();
-			if(action=="insert"){
-				// mencari jumlah variant
-				var row = $("#modal-form").find("#list-variant >tr").length;
-				// mendefinisikan row dan column yang akan ditambahkan ke table
-				var data = '<tr id="'+ row +'">'+
-						'<td><input type="text" id="outletList_'+ row +'_outletId" name="outletList['+ row +'].outletId" value="'+ outletId +'" class="form-control outletId" /></td>' +
-						'<td class="class="col-md-1">'+
-							'<button type="button" class="btn btn-success btn-xs btn-edit-variant"><i class="fa fa-edit"></i> </button> '+
-							'<button type="button" class="btn btn-danger btn-xs btn-delete-variant"><i class="fa fa-trash-o"></i> </button> '+
-						'</td>' +
-					'</tr>';
-				// tambahkan data ke table
-				$("#modal-form").find("#list-variant").append(data);
-			}else {
-				var id = $("#id").val();
-				$("#modal-form").find("#outletList_"+ id +"_outletId").val(outletId);
+		$("#modal-outlet").on("click",".btn-add-outlet",function(){
+			var id = $(this).val();
+			var name = $(this).attr("data-name");
+			var idiot = [];
+			var status="print";
+
+			$("#list-outlet tr").each(function (index) {
+			     idiot[index] = $(this).find("td:first-child").html();
+			});
+			console.log(id+idiot[0]);
+			if(idiot.length==0){
+				var data = "<tr><td class='data-cell'>"+ id +"</td><td>"+name+"</td></tr>";
+				$("#list-outlet").append(data);		
 			}
-			 */
-			// hide modal varian
-			$("#modal-variant").modal("hide");
+			else if(jQuery.inArray(id, idiot) != -1){
+				alert("data sudah ada");	
+			}
+			else{
+				var data = "<tr><td class='data-cell'>"+ id +"</td><td>"+name+"</td></tr>";
+				$("#list-outlet").append(data);
+			}
+					
 		});
 		
+		//delete variant
+		$("#modal-form").on("click",".btn-delete-variant", function(e){
+			e.preventDefault();
+			$(this).parent().parent().remove();
+			
+			$.each($("#modal-form").find("#list-outlet >tr"), function(index, item){
+				var trID = $(this).attr("id");
+				// replace id
+				$(this).attr('id',index);
+				
+				$(this).find(":input[type='text']").each(function(key,val){
+					// Replaced Name
+                    var oldName = $(this).attr('name');
+                   	var newName = oldName.replace('[' + trID + ']', '[' + index + ']');
+                    $(this).attr('name', newName);
+         
+					// Replaced ID
+                    var oldID = $(this).attr('id');
+                    var newID = oldID.replace('_' + trID + '_', '_' + index + '_');
+                    $(this).attr('id', newID);
+                 
+				});
+			});
+		});
+	
 
 		// saat haveAccount di checked		
 		$("#modal-form").on("change", "#haveAccount", function() {

@@ -6,14 +6,20 @@
 
 
 	<div class="form-group">
-		<label class="control-label col-md-3" for="roleId">Select Role</label>
-		<div class="col-md-9">
-			<select id="outletId" name="outletId" class="form-control">
-				<option value="0">none</option>
+		<div id="checkbox-outlet" class="col-md-12">
+			<table class="table table-considered">
+				<tr>
+					<th colspan="2" align="center">Select Role</th>
+				</tr>
+
 				<c:forEach var="outlet" items="${outletList}">
-					<option value="${outlet.id}">${outlet.name}</option>
+					<tr>
+						<td>${outlet.name }</td>
+						<td><button class="btn btn-success btn-flat btn-xs btn-add-outlet" type="button" value="${outlet.id}" data-name="${outlet.name}"><i class="fa fa-check"> </i></button></td>
+					</tr>
 				</c:forEach>
-			</select>
+
+			</table>
 		</div>
 	</div>
 
