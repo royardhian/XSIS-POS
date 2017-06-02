@@ -1,17 +1,24 @@
 package com.bootcamp.pos.model;
 
 import java.util.Date;
-
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -26,13 +33,13 @@ public class MstOutletModel {
 	private int provinceId;
 	private int regionId;
 	private int districtId;
-	private int villageId;
 	private int postalCode;
 	private Date createdOn;
 	private int createdBy;
 	private Date modifiedOn;
 	private int modifiedBy;
 	private int active;
+	private Set<MstEmployeeOutletModel> outlet=new HashSet<MstEmployeeOutletModel>(0);
 //	private Set<MstInventoryModel> inventory = new HashSet<MstInventoryModel>(0);
 	
 	@Id
@@ -149,6 +156,17 @@ public class MstOutletModel {
 	public void setActive(int active) {
 		this.active = active;
 	}
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="outlet")
+	@JsonManagedReference
+	public Set<MstEmployeeOutletModel> getOutlet() {
+		return outlet;
+	}
+	public void setOutlet(Set<MstEmployeeOutletModel> outlet) {
+		this.outlet = outlet;
+	}
+	
+	
 	
 //	@OneToMany(fetch = FetchType.EAGER, mappedBy="outlet")
 //	@JsonManagedReference

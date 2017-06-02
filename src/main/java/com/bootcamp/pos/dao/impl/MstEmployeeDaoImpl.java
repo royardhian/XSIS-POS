@@ -1,6 +1,7 @@
 package com.bootcamp.pos.dao.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bootcamp.pos.dao.MstEmployeeDao;
 import com.bootcamp.pos.model.MstEmployeeModel;
+import com.bootcamp.pos.model.MstEmployeeOutletModel;
 import com.bootcamp.pos.viewmodel.MstEmployeeViewModel;
 import com.bootcamp.pos.model.MstUserModel;
 
@@ -41,16 +43,16 @@ public class MstEmployeeDaoImpl implements MstEmployeeDao {
 		emp.setActive(1);
 		session.save(emp);
 
-		// // outlet
-		// List<Integer> outletList = model.getOutletId();
-		// if(outletList != null && outletList.size() > 0){
-		// for (Integer item : outletList) {
-		// MstEmployeeOutletModel outletEmp = new MstEmployeeOutletModel();
-		// outletEmp.setEmployeeId(emp.getId());
-		// outletEmp.setOutletId(item);
-		// session.save(outletEmp);
-		// }
-		// }
+		// outlet
+		List<Integer> outletList = model.getOutletId();
+		if (outletList != null && outletList.size() > 0) {
+			for (Integer item : outletList) {
+				MstEmployeeOutletModel outletEmp = new MstEmployeeOutletModel();
+				outletEmp.setEmployeeId(emp.getId());
+				outletEmp.setOutletId(item);
+				session.save(outletEmp);
+			}
+		}
 
 		// save ke user
 		if (model.getHaveAccount() > 0 && !model.getUserName().equals("") && !model.getPassword().equals("")) {
@@ -91,16 +93,8 @@ public class MstEmployeeDaoImpl implements MstEmployeeDao {
 		emp.setActive(1);
 		session.update(emp);
 
-		// // outlet
-		// List<Integer> outletList = model.getOutletId();
-		// if(outletList != null && outletList.size() > 0){
-		// for (Integer item : outletList) {
-		// MstEmployeeOutletModel outletEmp = new MstEmployeeOutletModel();
-		// outletEmp.setEmployeeId(emp.getId());
-		// outletEmp.setOutletId(item);
-		// session.save(outletEmp);
-		// }
-		// }
+		// outlet
+		Set<MstEmployeeOutletModel> outlet = emp.getOutlet();
 
 		// save ke user
 		if (model.getRoleId() > 0 && !model.getUserName().equals("") && !model.getPassword().equals("")) {
@@ -109,7 +103,7 @@ public class MstEmployeeDaoImpl implements MstEmployeeDao {
 			user.setPassword(model.getPassword());
 			user.setEmployeeId(emp.getId());
 			user.setRoleId(model.getRoleId());
-	
+
 			user.setModifiedBy(model.getModifiedBy());
 			user.setModifiedOn(model.getModifiedOn());
 			user.setActive(1);
@@ -142,12 +136,19 @@ public class MstEmployeeDaoImpl implements MstEmployeeDao {
 		// save ke user
 		if (model.getRoleId() > 0 && !model.getUserName().equals("") && !model.getPassword().equals("")) {
 			MstUserModel user = emp.getUser();
-	
+
 			user.setModifiedBy(model.getModifiedBy());
 			user.setModifiedOn(model.getModifiedOn());
 			user.setActive(0);
-			session.update(user);		
+			session.update(user);
+		}
 	}
+
+	@Override
+	public MstEmployeeOutletModel getDetailById(int id) throws Exception {
+		Session session = sessionFactory.getCurrentSession();
+		MstEmployeeOutletModel result = session.get(MstEmployeeOutletModel.class, id);
+		return result;
 	}
 
 }

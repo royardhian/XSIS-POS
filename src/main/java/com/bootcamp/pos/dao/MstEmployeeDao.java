@@ -3,6 +3,7 @@ package com.bootcamp.pos.dao;
 import java.util.List;
 
 import com.bootcamp.pos.model.MstEmployeeModel;
+import com.bootcamp.pos.model.MstEmployeeOutletModel;
 import com.bootcamp.pos.viewmodel.MstEmployeeViewModel;
 
 public interface MstEmployeeDao {
@@ -16,4 +17,6 @@ public interface MstEmployeeDao {
 	void update(MstEmployeeViewModel employee) throws Exception;
 
 	void delete(MstEmployeeViewModel employee) throws Exception;
+
+	MstEmployeeOutletModel getDetailById(int id) throws Exception;
 }

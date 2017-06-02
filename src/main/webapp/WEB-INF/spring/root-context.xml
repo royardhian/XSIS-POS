@@ -43,8 +43,8 @@
 				<value>com.bootcamp.pos.model.MstRoleModel</value>
 				<value>com.bootcamp.pos.model.MstEmployeeModel</value>
 				<value>com.bootcamp.pos.model.MstOutletModel</value>
-			<!--<value>com.bootcamp.pos.model.MstCategoryModel</value>
-				<value>com.bootcamp.pos.model.MstItemModel</value> -->
+				<value>com.bootcamp.pos.model.MstEmployeeOutletModel</value>
+				<!--<value>com.bootcamp.pos.model.MstCategoryModel</value> <value>com.bootcamp.pos.model.MstItemModel</value> -->
 			</list>
 		</property>
 		<property name="hibernateProperties">
