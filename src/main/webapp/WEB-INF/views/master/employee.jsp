@@ -113,7 +113,7 @@
 		
 
 		// modal Outlet
-		$("#modal-form").on("click","#btn-add-variant",function(){
+		$("#modal-form").on("click","#btn-add-outlet",function(){
 			$.ajax({
 				url : '${contextName}/master/employee/addOutlet',
 				dataType : 'html',
@@ -122,37 +122,95 @@
 					$("#modal-outlet").find(".modal-body").html(result);
 					$("#var-action").val("insert");
 					$("#modal-outlet").modal("show");
+
 				}
 			});
 		});
 		
-		// add variant
+		//show outlet edit
+		$("#modal-form").on("click","#btn-show-outlet",function(){
+			$("#outlet-table").show();		
+			$("#btn-show-outlet").hide();
+			$("#editOutlet").attr("value","yes");
+			$("#btn-cancel-outlet").show();
+			$("#btn-add-outlet").show();
+		});
+		
+		//cancel outlet edit
+		$("#modal-form").on("click","#btn-cancel-outlet",function(){
+			$("#outlet-table").hide();		
+			$("#btn-show-outlet").show();
+			$("#editOutlet").attr("value","no");
+			$("#btn-cancel-outlet").hide();
+			$("#btn-add-outlet").hide();
+		});
+		
+		$("#modal-form").on("click","#btn-show-account",function(){
+			$("#btn-show-account").hide();
+			$("#btn-cancel-account").show();
+			$("#role-account").show();
+			$("#add-account").attr("value","yes");
+		});
+		
+		$("#modal-form").on("click","#btn-cancel-account",function(){
+			$("#btn-show-account").show();
+			$("#btn-cancel-account").hide();
+			$("#role-account").hide();
+			$("#add-account").attr("value","no");
+		});
+		
+	
+		// add outlet
 		$("#modal-outlet").on("click",".btn-add-outlet",function(){
+			
+			var action = $("#out-action").val();
 			var id = $(this).val();
 			var name = $(this).attr("data-name");
 			var idiot = [];
 			var status="print";
 
 			$("#list-outlet tr").each(function (index) {
-			     idiot[index] = $(this).find("td:first-child").html();
+			     idiot[index] = $(this).find("td:nth-child(2)").find("input").val();
 			});
-			console.log(id+idiot[0]);
-			if(idiot.length==0){
-				var data = "<tr><td class='data-cell'>"+ id +"</td><td>"+name+"</td></tr>";
+			
+			console.log(action+id+idiot[0]);
+			
+			if(idiot.length==0 && action=="insert"){
+				var row = $("#modal-form").find("#list-outlet >tr").length;
+				var data = '<tr id="'+ row +'">'+
+				'<td><input type="text" id="outletLName_'+ row +'_name" name="outletName['+ row +']" value="'+
+					name +'" class="form-control outletName" readonly /></td>'+
+				'<td><input type="text" id="outletId_'+ row +'_id" name="outletId['+ row +']" value="'+
+					id +'" class="form-control outletName" readonly /></td>' +
+				'<td class="col-md-1">'+
+					'<button type="button" class="btn btn-danger btn-xs btn-delete-outlet"><i class="fa fa-trash-o"></i> </button> '+
+				'</td>' +
+				'</tr>';
 				$("#list-outlet").append(data);		
 			}
 			else if(jQuery.inArray(id, idiot) != -1){
 				alert("data sudah ada");	
 			}
 			else{
-				var data = "<tr><td class='data-cell'>"+ id +"</td><td>"+name+"</td></tr>";
-				$("#list-outlet").append(data);
+				if(action=="insert"){
+				var row = $("#modal-form").find("#list-outlet >tr").length;
+				var data = '<tr id="'+ row +'">'+
+				'<td><input type="text" id="outletName_'+ row +'_name" name="outletName['+ row +']" value="'+
+					name +'" class="form-control outletName" readonly /></td>'+
+				'<td><input type="text" id="outletId_'+ row +'_id" name="outletId['+ row +']" value="'+
+					id +'" class="form-control outletName" readonly /></td>' +
+				'<td class="col-md-1">'+
+					'<button type="button" class="btn btn-danger btn-xs btn-delete-outlet"><i class="fa fa-trash-o"></i> </button> '+
+				'</td>' +
+				'</tr>';
+			$("#list-outlet").append(data);
+				}
 			}
 					
 		});
 		
-		//delete variant
-		$("#modal-form").on("click",".btn-delete-variant", function(e){
+		//delete outlet
+		$("#modal-form").on("click",".btn-delete-outlet", function(e){
 			e.preventDefault();
 			$(this).parent().parent().remove();
 			
@@ -203,6 +261,10 @@
 					$("#modal-form").find(".modal-body").html(result);
 					$("#modal-title").html("Edit Employee");
 					$("#modal-form").modal("show");
+					$("#outlet-table").hide();
+					$("#btn-cancel-outlet").hide();
+					$("#btn-add-outlet").hide();
+					$("#btn-cancel-account").hide();
 				}
 			});
 		});
@@ -222,6 +284,7 @@
 					$("#modal-title").html("Menghapus Data Employee");
 					$("#modal-form").addClass("modal-danger");
 					$("#modal-form").modal("show");
+					
 				}
 			});
 		});

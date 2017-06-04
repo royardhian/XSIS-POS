@@ -37,12 +37,29 @@ public class MstEmployeeServiceImpl implements MstEmployeeService {
 	@Override
 	public void update(MstEmployeeViewModel employee) throws Exception {
 		this.dao.update(employee);
-		
+
 	}
 
 	@Override
 	public void delete(MstEmployeeViewModel employee) throws Exception {
 		this.dao.delete(employee);
+
+	}
+
+	@Override
+	public void updateHead(MstEmployeeViewModel employee) throws Exception {
+		this.dao.updateHead(employee);
+	}
+
+	@Override
+	public void updateAccount(MstEmployeeViewModel employee) throws Exception {
+		this.dao.updateAccount(employee);
+		
+	}
+
+	@Override
+	public void updateAddAccount(MstEmployeeViewModel employee) throws Exception {
+		this.dao.updateAddAccount(employee);
 		
 	}
 

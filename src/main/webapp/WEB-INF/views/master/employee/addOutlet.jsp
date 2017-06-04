@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <form id="form-variant" class="form-horizontal">
-	<input type="hidden" id="var-action" name="var-action" value="insert">
+	<input type="hidden" id="out-action" name="out-action" value="insert">
 	<input type="hidden" id="id" name="id">
 
 

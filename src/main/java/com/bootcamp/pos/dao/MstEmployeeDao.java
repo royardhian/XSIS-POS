@@ -16,4 +16,11 @@ public interface MstEmployeeDao {
 	void update(MstEmployeeViewModel employee) throws Exception;
 
 	void delete(MstEmployeeViewModel employee) throws Exception;
+
+	public void updateHead(MstEmployeeViewModel employee) throws Exception;
+
+	public void updateAccount(MstEmployeeViewModel employee) throws Exception;
+
+	public void updateAddAccount(MstEmployeeViewModel employee) throws Exception;
+
 }

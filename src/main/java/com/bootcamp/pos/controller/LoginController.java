@@ -1,12 +1,8 @@
 package com.bootcamp.pos.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,61 +19,59 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
-	
-//	@Autowired
-//	private MstOutletService outletService;
 
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public ModelAndView login(
-			@RequestParam(value="error", required=false) String error,
-			@RequestParam(value="logout",required=false) String logout){
+	// @Autowired
+	// private MstOutletService outletService;
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout) {
 		ModelAndView model = new ModelAndView();
-		if(error != null){
-			model.addObject("error","Invalid username and password");
+		if (error != null) {
+			model.addObject("error", "Invalid username and password");
 		}
-		if(logout != null){
-			model.addObject("msg","You are have logged out successfully");
+		if (logout != null) {
+			model.addObject("msg", "You are have logged out successfully");
 		}
 		return model;
 	}
-	
-	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public ModelAndView index(Model model, HttpSession session){
+
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public ModelAndView index(Model model, HttpSession session) {
 		int outletId = Integer.parseInt(session.getAttribute("outletId").toString());
-		
-		System.out.println("Outlet : "+ outletId);
-		model.addAttribute("outletId",outletId);
+
+		System.out.println("Outlet : " + outletId);
+		model.addAttribute("outletId", outletId);
 		return new ModelAndView("/index");
 	}
-	
-//	@RequestMapping(value="/select-outlet", method=RequestMethod.GET)
-//	public ModelAndView selectOutlet(Model model){
-//		List<MstOutletModel> outletList = null;
-//		try {
-//			outletList = outletService.get();
-//		} catch (Exception e) {
-//			
-//		}
-//		
-//		model.addAttribute("outletList",outletList);
-//		
-//		return new ModelAndView("/select-outlet");
-//	}
-	
-	@RequestMapping(value="/direct-outlet", method=RequestMethod.POST)
-	public String directOutlet(HttpServletRequest request, HttpSession session){
-		
+
+	// @RequestMapping(value="/select-outlet", method=RequestMethod.GET)
+	// public ModelAndView selectOutlet(Model model){
+	// List<MstOutletModel> outletList = null;
+	// try {
+	// outletList = outletService.get();
+	// } catch (Exception e) {
+	//
+	// }
+	//
+	// model.addAttribute("outletList",outletList);
+	//
+	// return new ModelAndView("/select-outlet");
+	// }
+
+	@RequestMapping(value = "/direct-outlet", method = RequestMethod.POST)
+	public String directOutlet(HttpServletRequest request, HttpSession session) {
+
 		int outletId = Integer.parseInt(request.getParameter("outletId"));
 		session.setAttribute("outletId", outletId);
 		return "/index";
 	}
-	
-	
-	@RequestMapping(value="/403", method=RequestMethod.GET)
-	public ModelAndView AccessDenied(){
+
+	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	public ModelAndView AccessDenied() {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if(!(auth instanceof AnonymousAuthenticationToken)){
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
 			model.addObject("username", userDetail.getUsername());
 		}

@@ -35,7 +35,7 @@
 		<div class="col-md-6">
 			<div class="form-group">
 				<label class="control-label" for="email">Email</label> <input
-					type="text" name="email" id="email" class="form-control" />
+					type="email" name="email" id="email" class="form-control" />
 			</div>
 		</div>
 
@@ -45,11 +45,7 @@
 		<div class="box-header">
 			<h3 class="box-title">Assign Outlet</h3>
 			<div class="box-tools">
-				<button type="button" id="btn-delete-variant"
-					class="btn btn-primary btn-sm">
-					<i class="fa fa-plus"></i>
-				</button>
-				<button type="button" id="btn-add-variant"
+				<button type="button" id="btn-add-outlet"
 					class="btn btn-primary btn-sm">
 					<i class="fa fa-plus"></i>
 				</button>

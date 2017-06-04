@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bootcamp.pos.model.MstCategoryModel;
 import com.bootcamp.pos.model.MstEmployeeModel;
 import com.bootcamp.pos.model.MstOutletModel;
 import com.bootcamp.pos.service.MstEmployeeService;
@@ -33,10 +32,9 @@ public class MstEmployeeController extends BaseController {
 
 	@Autowired
 	private MstRoleService roleService;
-	
+
 	@Autowired
 	private MstOutletService outletService;
-
 
 	@RequestMapping(value = "/master/employee")
 	public ModelAndView MstEmployeeIndex(Model model) {
@@ -52,8 +50,15 @@ public class MstEmployeeController extends BaseController {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
-		model.addAttribute("list", result);
 
+		List<MstOutletModel> outletList = null;
+		try {
+			outletList = this.outletService.get();
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+		model.addAttribute("outletList", outletList);
+		model.addAttribute("list", result);
 		return new ModelAndView("/master/employee/list");
 	}
 
@@ -85,11 +90,14 @@ public class MstEmployeeController extends BaseController {
 		return new ModelAndView("/master/employee/addOutlet");
 	}
 
-	
 	@RequestMapping(value = "/master/employee/save")
 	public String save(Model model, @ModelAttribute MstEmployeeViewModel employee, HttpServletRequest request) {
 		String result = "";
 		String action = request.getParameter("action");
+		String update = request.getParameter("editOutlet");
+		String addAccount = request.getParameter("add-account");
+		int haveAccount = employee.getHaveAccount();
+
 		try {
 			if (action.equals("insert")) {
 				employee.setCreatedBy(this.getUserId());
@@ -100,13 +108,32 @@ public class MstEmployeeController extends BaseController {
 
 				this.service.insert(employee);
 			} else if (action.equals("update")) {
-				employee.setCreatedBy(1);
-				employee.setCreatedOn(new Date());
-				employee.setModifiedBy(1);
-				employee.setCreatedOn(new Date());
-				employee.setActive(1);
-				
-				this.service.update(employee);
+				if (update.equals("yes")) {
+					employee.setModifiedBy(1);
+					employee.setCreatedOn(new Date());
+					employee.setActive(1);
+
+					this.service.update(employee);
+				} else if (update.equals("no")) {
+					employee.setModifiedBy(1);
+					employee.setCreatedOn(new Date());
+					employee.setActive(1);
+
+					if (haveAccount == 1) {
+						this.service.updateAccount(employee);
+					}
+					this.service.updateHead(employee);
+
+				}
+				if (addAccount.equals("yes")) {
+					employee.setCreatedBy(this.getUserId());
+					employee.setCreatedOn(new Date());
+					employee.setModifiedBy(this.getUserId());
+					employee.setCreatedOn(new Date());
+					employee.setActive(1);
+
+					this.service.updateAddAccount(employee);
+				}
 			} else if (action.equals("delete")) {
 				this.service.delete(employee);
 			}
@@ -122,7 +149,7 @@ public class MstEmployeeController extends BaseController {
 
 		return "/master/employee/save";
 	}
-	
+
 	@RequestMapping(value = "/master/employee/delete")
 	public ModelAndView delete(Model model, HttpServletRequest request) {
 		Integer id = Integer.parseInt(request.getParameter("id"));
@@ -146,7 +173,7 @@ public class MstEmployeeController extends BaseController {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
-		
+
 		List<MstRoleModel> roleList = null;
 		try {
 			roleList = this.roleService.get();
