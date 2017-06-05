@@ -44,7 +44,15 @@
 				<value>com.bootcamp.pos.model.MstEmployeeModel</value>
 				<value>com.bootcamp.pos.model.MstOutletModel</value>
 				<value>com.bootcamp.pos.model.MstEmployeeOutletModel</value>
-				<!--<value>com.bootcamp.pos.model.MstCategoryModel</value> <value>com.bootcamp.pos.model.MstItemModel</value> -->
+				<value>com.bootcamp.pos.model.MstCategoryModel</value>
+				<value>com.bootcamp.pos.model.MstItemModel</value>
+				<value>com.bootcamp.pos.model.MstItemVariantModel</value>
+				<value>com.bootcamp.pos.model.MstInventoryModel</value>
+				<value>com.bootcamp.pos.model.MstSupplierModel</value>
+				<value>com.bootcamp.pos.model.TrxPrModel</value>
+				<value>com.bootcamp.pos.model.TrxPrDetailModel</value>
+				<value>com.bootcamp.pos.model.TrxPrHistoryModel</value>
+				<value>com.bootcamp.pos.model.TrxPoModel</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

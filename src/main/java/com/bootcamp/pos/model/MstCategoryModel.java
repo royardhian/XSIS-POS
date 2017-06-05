@@ -2,16 +2,21 @@ package com.bootcamp.pos.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -22,17 +27,17 @@ public class MstCategoryModel implements Serializable {
 	
 	private int id;
 	private String name;
-	private Date createdOn;
 	private int createdBy;
-	private Date modifiedOn;
+	private Date createdOn;
 	private int modifiedBy;
+	private Date modifiedOn;
 	private int active;
-//	private Set<MstItemModel> items = new HashSet<MstItemModel>(0);
+	private Set<MstItemModel> items = new HashSet<MstItemModel>(0);
 	
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.TABLE,generator="MST_CATEGORY")
-	@TableGenerator(name="MST_CATEGORY",table="POS_MST_SEQUENCE", pkColumnName="SEQUENCE_ID", pkColumnValue="MST_CATEGORY", valueColumnName="SEQUENCE_VALUE", allocationSize=1, initialValue=1)
+	@TableGenerator(name="MST_CATEGORY",table="POS_MST_SEQUENCE",pkColumnName="SEQUENCE_ID", pkColumnValue="MST_CATEGORY",valueColumnName="SEQUENCE_VALUE", allocationSize=1, initialValue=1)
 	public int getId() {
 		return id;
 	}
@@ -40,20 +45,12 @@ public class MstCategoryModel implements Serializable {
 		this.id = id;
 	}
 	
-	@Column(name="NAME")
+	@Column(name="NAME", length=50)
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	
-	@Column(name="CREATED_ON")
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
 	}
 	
 	@Column(name="CREATED_BY")
@@ -64,12 +61,12 @@ public class MstCategoryModel implements Serializable {
 		this.createdBy = createdBy;
 	}
 	
-	@Column(name="MODIFIED_ON")
-	public Date getModifiedOn() {
-		return modifiedOn;
+	@Column(name="CREATED_ON")
+	public Date getCreatedOn() {
+		return createdOn;
 	}
-	public void setModifiedOn(Date modifiedOn) {
-		this.modifiedOn = modifiedOn;
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
 	}
 	
 	@Column(name="MODIFIED_BY")
@@ -80,6 +77,14 @@ public class MstCategoryModel implements Serializable {
 		this.modifiedBy = modifiedBy;
 	}
 	
+	@Column(name="MODIFIED_ON")
+	public Date getModifiedOn() {
+		return modifiedOn;
+	}
+	public void setModifiedOn(Date modifiedOn) {
+		this.modifiedOn = modifiedOn;
+	}
+	
 	@Column(name="ACTIVE")
 	public int getActive() {
 		return active;
@@ -88,12 +93,13 @@ public class MstCategoryModel implements Serializable {
 		this.active = active;
 	}
 	
-//	@OneToMany(fetch = FetchType.EAGER, mappedBy="category")
-//	@JsonManagedReference
-//	public Set<MstItemModel> getItems() {
-//		return items;
-//	}
-//	public void setItems(Set<MstItemModel> items) {
-//		this.items = items;
-//	}
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="category")
+	@JsonManagedReference
+	public Set<MstItemModel> getItems() {
+		return items;
+	}
+	public void setItems(Set<MstItemModel> items) {
+		this.items = items;
+	}
+
 }

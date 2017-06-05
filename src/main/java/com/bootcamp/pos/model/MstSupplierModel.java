@@ -1,8 +1,6 @@
 package com.bootcamp.pos.model;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,24 +9,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 @Entity
-@Table(name="POS_MST_OUTLET")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="outletId")
-public class MstOutletModel {
+@Table(name="POS_MST_SUPPLIER")
+public class MstSupplierModel {
 	private int id;
 	private String name;
-	private String email;
-	private String phone;
 	private String address;
+	private String phone;
+	private String email;
 	private int provinceId;
 	private int regionId;
 	private int districtId;
@@ -38,16 +30,13 @@ public class MstOutletModel {
 	private Date modifiedOn;
 	private int modifiedBy;
 	private int active;
-	private Set<MstEmployeeOutletModel> employeeOutlet=new HashSet<MstEmployeeOutletModel>(0);
-//	private Set<MstInventoryModel> inventory = new HashSet<MstInventoryModel>(0);
 	
 	private TrxPoModel trxPo;
 	
-	
 	@Id
 	@Column(name="ID")
-	@GeneratedValue(strategy=GenerationType.TABLE,generator="MST_OUTLET")
-	@TableGenerator(name="MST_OUTLET",table="POS_MST_SEQUENCE", pkColumnName="SEQUENCE_ID", pkColumnValue="MST_OUTLET", valueColumnName="SEQUENCE_VALUE", allocationSize=1, initialValue=1)
+	@GeneratedValue(strategy=GenerationType.TABLE,generator="MST_SUPPLIER")
+	@TableGenerator(name="MST_SUPPLIER",table="POS_MST_SEQUENCE", pkColumnName="SEQUENCE_ID", pkColumnValue="MST_SUPPLIER", valueColumnName="SEQUENCE_VALUE", allocationSize=1, initialValue=1)
 	public int getId() {
 		return id;
 	}
@@ -55,7 +44,7 @@ public class MstOutletModel {
 		this.id = id;
 	}
 	
-	@Column(name="NAME",length=50,nullable=false)
+	@Column(name="NAME", length=50)
 	public String getName() {
 		return name;
 	}
@@ -63,12 +52,12 @@ public class MstOutletModel {
 		this.name = name;
 	}
 	
-	@Column(name="EMAIL")
-	public String getEmail() {
-		return email;
+	@Column(name="ADDRESS", length=255)
+	public String getAddress() {
+		return address;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	@Column(name="PHONE")
@@ -78,16 +67,15 @@ public class MstOutletModel {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
-	@Column(name="ADDRESS",length=255)
-	public String getAddress() {
-		return address;
+	@Column(name="EMAIL")
+	public String getEmail() {
+		return email;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
-	@Column(name="PROVINCE_ID",nullable=false)
+	@Column(name="PROVINCE_ID")
 	public int getProvinceId() {
 		return provinceId;
 	}
@@ -95,23 +83,21 @@ public class MstOutletModel {
 		this.provinceId = provinceId;
 	}
 	
-	@Column(name="REGION_ID",length=6,nullable=false)
+	@Column(name="REGION_ID", length=6)
 	public int getRegionId() {
 		return regionId;
 	}
 	public void setRegionId(int regionId) {
 		this.regionId = regionId;
 	}
-	
-	@Column(name="DISTRICT_ID",length=16,nullable=false)
+	@Column(name="DISTRICT_ID", length=16)
 	public int getDistrictId() {
 		return districtId;
 	}
 	public void setDistrictId(int districtId) {
 		this.districtId = districtId;
 	}
-	
-	@Column(name="POSTAL_CODE",length=50)
+	@Column(name="POSTAL_CODE", length=50)
 	public int getPostalCode() {
 		return postalCode;
 	}
@@ -151,7 +137,7 @@ public class MstOutletModel {
 		this.modifiedBy = modifiedBy;
 	}
 	
-	@Column(name="ACTIVE",nullable=false)
+	@Column(name="ACTIVE")
 	public int getActive() {
 		return active;
 	}
@@ -159,31 +145,11 @@ public class MstOutletModel {
 		this.active = active;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="outlet")
-	@JsonManagedReference
-	public Set<MstEmployeeOutletModel> getOutlet() {
-		return employeeOutlet;
-	}
-	public void setOutlet(Set<MstEmployeeOutletModel> outlet) {
-		this.employeeOutlet = outlet;
-	}
-	
-	@OneToOne(fetch=FetchType.EAGER, mappedBy="outlet", cascade=CascadeType.ALL)
+	@OneToOne(fetch=FetchType.EAGER, mappedBy="supplier", cascade=CascadeType.ALL)
 	public TrxPoModel getTrxPo() {
 		return trxPo;
 	}
 	public void setTrxPo(TrxPoModel trxPo) {
 		this.trxPo = trxPo;
 	}
-	
-	
-	
-//	@OneToMany(fetch = FetchType.EAGER, mappedBy="outlet")
-//	@JsonManagedReference
-//	public Set<MstInventoryModel> getInventory() {
-//		return inventory;
-//	}
-//	public void setInventory(Set<MstInventoryModel> inventory) {
-//		this.inventory = inventory;
-//	}
 }

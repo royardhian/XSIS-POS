@@ -107,6 +107,7 @@
 					$("#modal-form").find(".modal-body").html(result);
 					$("#modal-title").html("Add Employee");
 					$("#modal-form").modal("show");
+					$("#modal-form").removeClass("modal-danger");
 				}
 			});
 		});
@@ -122,7 +123,7 @@
 					$("#modal-outlet").find(".modal-body").html(result);
 					$("#var-action").val("insert");
 					$("#modal-outlet").modal("show");
-
+					
 				}
 			});
 		});
@@ -261,6 +262,7 @@
 					$("#modal-form").find(".modal-body").html(result);
 					$("#modal-title").html("Edit Employee");
 					$("#modal-form").modal("show");
+					$("#modal-form").removeClass("modal-danger");
 					$("#outlet-table").hide();
 					$("#btn-cancel-outlet").hide();
 					$("#btn-add-outlet").hide();
