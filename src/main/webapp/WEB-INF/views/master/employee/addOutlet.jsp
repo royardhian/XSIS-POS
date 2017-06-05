@@ -24,12 +24,8 @@
 	</div>
 
 	<div class="modal-footer">
-		<button type="button" class="btn btn-default pull-left"
-			data-dismiss="modal">
-			<i class="fa fa-close"></i> Close
-		</button>
-		<button type="button" id="btn-add-outlet" class="btn btn-primary">
-			<i class="fa fa-plus"></i> Add
+		<button type="button" id="btn-add-outlet" class="btn btn-success" data-dismiss="modal">
+			<i class="fa fa-check"></i> Done
 		</button>
 	</div>
 </form>

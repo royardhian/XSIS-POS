@@ -134,15 +134,14 @@ public class MstEmployeeModel {
 		this.user = user;
 	}
 	
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="employee")
 	@JsonManagedReference
-	public Set<MstEmployeeOutletModel> getOutlet() {
+	public Set<MstEmployeeOutletModel> getEmployeeOutlet() {
 		return employeeOutlet;
 	}
-	public void setOutlet(Set<MstEmployeeOutletModel> outlet) {
-		this.employeeOutlet = outlet;
+	public void setEmployeeOutlet(Set<MstEmployeeOutletModel> employeeOutlet) {
+		this.employeeOutlet = employeeOutlet;
 	}
-	
-	
 	
 }

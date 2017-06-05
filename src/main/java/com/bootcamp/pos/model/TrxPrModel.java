@@ -131,7 +131,7 @@ public class TrxPrModel {
 		this.details = details;
 	}
 	
-	@OneToOne(fetch=FetchType.EAGER, mappedBy="TrxPr", cascade=CascadeType.ALL)
+	@OneToOne(fetch=FetchType.EAGER, mappedBy="trxPr", cascade=CascadeType.ALL)
 	public TrxPoModel getTrxPo() {
 		return TrxPo;
 	}

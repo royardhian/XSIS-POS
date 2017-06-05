@@ -165,10 +165,9 @@ public class MstEmployeeDaoImpl implements MstEmployeeDao {
 
 			user.setModifiedBy(employee.getModifiedBy());
 			user.setModifiedOn(employee.getModifiedOn());
-			user.setActive(1);
+			user.setActive(employee.getActive());
 			session.update(user);
 		}
-
 	}
 
 	@Override

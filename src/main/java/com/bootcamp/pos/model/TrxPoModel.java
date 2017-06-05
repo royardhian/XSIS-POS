@@ -29,7 +29,7 @@ public class TrxPoModel {
 	private int modifiedBy;
 	private Date modifiedOn;
 
-	private TrxPrModel TrxPr;
+	private TrxPrModel trxPr;
 	private MstOutletModel outlet;
 	private MstSupplierModel supplier;
 
@@ -147,11 +147,11 @@ public class TrxPoModel {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PR_ID", nullable = false, insertable = false, updatable = false)
 	public TrxPrModel getTrxPr() {
-		return TrxPr;
+		return trxPr;
 	}
 
 	public void setTrxPr(TrxPrModel trxPr) {
-		TrxPr = trxPr;
+		this.trxPr = trxPr;
 	}
 
 	@OneToOne(fetch = FetchType.EAGER)

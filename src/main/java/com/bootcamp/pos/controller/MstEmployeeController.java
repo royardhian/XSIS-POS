@@ -94,8 +94,9 @@ public class MstEmployeeController extends BaseController {
 	public String save(Model model, @ModelAttribute MstEmployeeViewModel employee, HttpServletRequest request) {
 		String result = "";
 		String action = request.getParameter("action");
-		String update = request.getParameter("editOutlet");
+		String updateOutlet = request.getParameter("editOutlet");
 		String addAccount = request.getParameter("add-account");
+		String statusAccount = request.getParameter("disable-account");
 		int haveAccount = employee.getHaveAccount();
 
 		try {
@@ -108,14 +109,14 @@ public class MstEmployeeController extends BaseController {
 
 				this.service.insert(employee);
 			} else if (action.equals("update")) {
-				if (update.equals("yes")) {
-					employee.setModifiedBy(1);
+				if (updateOutlet.equals("yes")) {
+					employee.setModifiedBy(this.getUserId());
 					employee.setCreatedOn(new Date());
 					employee.setActive(1);
 
 					this.service.update(employee);
-				} else if (update.equals("no")) {
-					employee.setModifiedBy(1);
+				} else if (updateOutlet.equals("no")) {
+					employee.setModifiedBy(this.getUserId());
 					employee.setCreatedOn(new Date());
 					employee.setActive(1);
 
@@ -124,6 +125,18 @@ public class MstEmployeeController extends BaseController {
 					}
 					this.service.updateHead(employee);
 
+				}
+				if (statusAccount.equals("enable")){
+					employee.setModifiedBy(this.getUserId());
+					employee.setCreatedOn(new Date());
+					employee.setActive(1);
+					this.service.updateAccount(employee);
+				}
+				else if (statusAccount.equals("disable")) {
+					employee.setModifiedBy(this.getUserId());
+					employee.setCreatedOn(new Date());
+					employee.setActive(0);
+					this.service.updateAccount(employee);
 				}
 				if (addAccount.equals("yes")) {
 					employee.setCreatedBy(this.getUserId());

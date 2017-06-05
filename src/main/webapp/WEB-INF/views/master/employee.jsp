@@ -160,6 +160,19 @@
 			$("#add-account").attr("value","no");
 		});
 		
+		$("#modal-form").on("click","#btn-disable-account",function(){
+			$("#btn-disable-account").hide();
+			$("#btn-enable-account").show();
+			$("#role-account").hide();
+			$("#disable-account").attr("value","disable");
+		});
+		
+		$("#modal-form").on("click","#btn-enable-account",function(){
+			$("#btn-disable-account").show();
+			$("#btn-enable-account").hide();
+			$("#role-account").show();
+			$("#disable-account").attr("value","enable");
+		});
 	
 		// add outlet
 		$("#modal-outlet").on("click",".btn-add-outlet",function(){

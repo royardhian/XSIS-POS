@@ -161,11 +161,11 @@ public class MstOutletModel {
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="outlet")
 	@JsonManagedReference
-	public Set<MstEmployeeOutletModel> getOutlet() {
+	public Set<MstEmployeeOutletModel> getEmployeeOutlet() {
 		return employeeOutlet;
 	}
-	public void setOutlet(Set<MstEmployeeOutletModel> outlet) {
-		this.employeeOutlet = outlet;
+	public void setEmployeeOutlet(Set<MstEmployeeOutletModel> employeeOutlet) {
+		this.employeeOutlet = employeeOutlet;
 	}
 	
 	@OneToOne(fetch=FetchType.EAGER, mappedBy="outlet", cascade=CascadeType.ALL)
