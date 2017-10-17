@@ -87,7 +87,7 @@ public class MstRoleModel {
 		this.active = active;
 	}
 	
-	@OneToOne(mappedBy="employee", fetch=FetchType.EAGER)
+	@OneToOne(mappedBy="role", fetch=FetchType.EAGER)
 	public MstUserModel getUser() {
 		return user;
 	}

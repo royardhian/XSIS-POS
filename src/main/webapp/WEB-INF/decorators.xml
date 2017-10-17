@@ -6,6 +6,7 @@
 		<pattern>/assets/*</pattern>
 		<pattern>/master/employee/*</pattern>
 		<pattern>/master/category/*</pattern>
+		<pattern>/master/server/*</pattern>
 		<pattern>/master/role/*</pattern>
 		<pattern>/master/outlet/*</pattern>
 		<pattern>/master/supplier/*</pattern>

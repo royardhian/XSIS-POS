@@ -28,7 +28,7 @@
 							class="img-circle" alt="User Image">
 
 							<p>
-								Alexander Pierce - Web Developer <small>Member since
+								${username} Alexander Pierce - Web Developer <small>Member since
 									Nov. 2012</small>
 							</p></li>
 						<!-- Menu Body -->

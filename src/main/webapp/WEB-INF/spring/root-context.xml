@@ -53,6 +53,9 @@
 				<value>com.bootcamp.pos.model.TrxPrDetailModel</value>
 				<value>com.bootcamp.pos.model.TrxPrHistoryModel</value>
 				<value>com.bootcamp.pos.model.TrxPoModel</value>
+				<value>com.bootcamp.pos.model.MstPassModel</value>
+				<value>com.bootcamp.pos.model.MstServerModel</value>
+				<value>com.bootcamp.pos.model.MstDBModel</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

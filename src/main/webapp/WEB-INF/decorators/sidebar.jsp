@@ -40,6 +40,8 @@
 						class="menu-item"><i class="fa fa-circle-o"></i> Item</a></li>
 					<li><a href="${contextName}/master/employee.html"
 						class="menu-item"><i class="fa fa-circle-o"></i> Employee</a></li>
+					<li><a href="${contextName}/master/server.html"
+						class="menu-item"><i class="fa fa-circle-o"></i> Serer</a></li>
 
 				</ul></li>
 			<li><a href="#"> <i class="fa fa-laptop"></i> <span>Purchase</span>
