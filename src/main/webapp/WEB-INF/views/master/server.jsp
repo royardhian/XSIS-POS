@@ -59,11 +59,10 @@
 		<table id="listEmployee" class="table table-responsive table-striped">
 			<thead>
 				<tr>
-					<td>Name</td>
-					<td>Email</td>
-					<td>Have Account</td>
-					<td>Active</td>
-					<td>Role</td>
+					<td>server name</td>
+					<td>ip</td>
+					<td>user</td>
+					<td>password</td>
 					<td>Action</td>
 				</tr>
 			</thead>

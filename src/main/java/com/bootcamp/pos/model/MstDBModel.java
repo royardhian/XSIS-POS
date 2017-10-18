@@ -5,10 +5,13 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 @Entity
 @Table (name = "MST_DB_MODEL")
@@ -18,18 +21,20 @@ public class MstDBModel {
 	private String dbIpServer;
 	private String dbPort;
 	private String dbSID;
-	private String passId;
+	private int passId;
 	private int createdBy;
 	private Date createdOn;
 	private int modifiedBy;
 	private Date modifiedOn;
 	private int active;
 	
-	private MstPassModel password;
+	private MstPassModel pass;
 	
 	
 	@Id
 	@Column (name = "ID")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "MST_DB")
+	@TableGenerator(name = "MST_DB", table = "POS_MST_SEQUENCE", pkColumnName = "SEQUENCE_ID", pkColumnValue = "MST_DB", valueColumnName = "SEQUENCE_VALUE", allocationSize = 1, initialValue = 1)
 	public int getId() {
 		return id;
 	}
@@ -69,11 +74,11 @@ public class MstDBModel {
 		this.dbSID = dbSID;
 	}
 	
-	@Column (name = "PASS_ID")
-	public String getPassId() {
+	@Column (name = "PASS_ID", nullable = false)
+	public int getPassId() {
 		return passId;
 	}
-	public void setPassId(String passId) {
+	public void setPassId(int passId) {
 		this.passId = passId;
 	}
 	
@@ -120,11 +125,11 @@ public class MstDBModel {
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PASS_ID", nullable = false, insertable = false, updatable = false)
-	public MstPassModel getPassword() {
-		return password;
+	public MstPassModel getPass() {
+		return pass;
 	}
-	public void setPassword(MstPassModel password) {
-		this.password = password;
+	public void setPass(MstPassModel pass) {
+		this.pass = pass;
 	}
 	
 	

@@ -20,29 +20,5 @@ public class MstOutletServiceImpl implements MstOutletService {
 		return this.dao.get();
 	}
 
-	@Override
-	public List<MstOutletModel> search(String keySearch) throws Exception {
-		return this.dao.search(keySearch);
-	}
-
-	@Override
-	public MstOutletModel getById(int id) throws Exception {
-		return this.dao.getById(id);
-	}
-
-	@Override
-	public void insert(MstOutletModel model) throws Exception {
-		this.dao.insert(model);
-	}
-
-	@Override
-	public void update(MstOutletModel model) throws Exception {
-		this.dao.update(model);
-	}
-
-	@Override
-	public void delete(MstOutletModel model) throws Exception {
-		this.dao.delete(model);
-	}
 
 }

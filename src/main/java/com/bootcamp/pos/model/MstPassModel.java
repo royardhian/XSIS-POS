@@ -1,13 +1,20 @@
 package com.bootcamp.pos.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="MST_PASS_MODEL")
@@ -15,16 +22,19 @@ public class MstPassModel {
 	private int id;
 	private String username;
 	private String password;
+	private String description;
 	private int createdBy;
 	private Date createdOn;
 	private int modifiedBy;
 	private Date modifiedOn;
 	private int active;
-	private MstServerModel server;
+	private MstServerPassModel server;
 	private MstDBModel database;
 	
 	@Id
 	@Column (name = "ID")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "MST_PASS")
+	@TableGenerator(name = "MST_PASS", table = "POS_MST_SEQUENCE", pkColumnName = "SEQUENCE_ID", pkColumnValue = "MST_PASS", valueColumnName = "SEQUENCE_VALUE", allocationSize = 1, initialValue = 1)
 	public int getId() {
 		return id;
 	}
@@ -46,6 +56,14 @@ public class MstPassModel {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	@Column (name = "DESRIPTION")
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 
@@ -89,22 +107,24 @@ public class MstPassModel {
 		this.active = active;
 	}
 	
-	@OneToOne(mappedBy="password", fetch=FetchType.EAGER)
-	public MstServerModel getServer() {
-		return server;
-	}
-	public void setServer(MstServerModel server) {
-		this.server = server;
-	}
 	
-	@OneToOne(mappedBy="password", fetch=FetchType.EAGER)
+	
+	@OneToOne(mappedBy="pass", fetch=FetchType.EAGER)
 	public MstDBModel getDatabase() {
 		return database;
 	}
 	public void setDatabase(MstDBModel database) {
 		this.database = database;
 	}
-
 	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="server")
+	@JsonManagedReference
+	public MstServerPassModel getServer() {
+		return server;
+	}
+	public void setServer(MstServerPassModel server) {
+		this.server = server;
+	}
+
 	
 }
